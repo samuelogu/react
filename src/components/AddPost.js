@@ -2,19 +2,15 @@ import {Button, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Input} from "../hooks/Input";
 
+const axios = require('axios');
+
 require('dotenv').config()
 
-const { PrismaClient } = require('@prisma/client')
-const db = new PrismaClient()
+// const cloudinary = require('cloudinary')
 
-const cloudinary = require('cloudinary')
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRETE
-})
 
-export default function AddPost ({ modal }) {
+
+export default function AddPost () {
 
     const [show, setShow] = useState(false)
     const [image, setImage] = useState(null)
@@ -32,9 +28,32 @@ export default function AddPost ({ modal }) {
 
     const postSubmit = e => {
         e.preventDefault()
-        console.log(`Selected file - ${image}`);
-        resetTitle()
-        resetBody()
+        const file = document.getElementById('image').value
+        let data = new FormData();
+        data.append('upload_preset', '<upload_preset>');
+        data.append('file', file);
+        data.append('cloud_name', '<cloud_name>');
+        axios.get(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            file,
+            api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
+            timestamp: 1315060076,
+            signature: "bfd09f95f331f558cbd1320e67aa8d488770583e",
+            upload_preset: 'prisma_react_preset'
+        })
+            .then(function (response) {
+                // handle success
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error.message);
+            })
+        //Upload to cloudinary
+        // cloudinary.uploader.upload(file).then(result => {
+        //     console.log(result);
+        // })
+        // resetTitle()
+        // resetBody()
     }
 
     return (

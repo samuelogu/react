@@ -2,6 +2,17 @@ import {Button, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {Input} from "../hooks/Input";
 
+require('dotenv').config()
+
+const { PrismaClient } = require('@prisma/client')
+const db = new PrismaClient()
+
+const cloudinary = require('cloudinary')
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRETE
+})
 
 export default function AddPost ({ modal }) {
 

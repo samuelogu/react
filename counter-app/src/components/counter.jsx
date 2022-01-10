@@ -4,14 +4,18 @@ import PropTypes from 'prop-types';
 class Counter extends Component {
 
     state = {
-        count: 10,
-        imageUrl: 'https://picsum.photos/200'
+        count: 0
+    }
+
+    styles = {
+        fontSize: '50px',
+        fontWeight: 'bold'
     }
 
     render() {
         return (
             <React.Fragment>
-                <img src={this.state.imageUrl} alt="Lights"/>
+                <span style={this.styles} className="bg-black p-3 text-white m-2 rounded-md">{this.formatCount()}</span>
                 <span>{this.formatCount()}</span>
                 <div className="mt-2 sm:mt-2 sm:flex sm:justify-start lg:justify-start">
                     <div className="rounded-md shadow">

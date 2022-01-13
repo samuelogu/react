@@ -12,10 +12,22 @@ class Counter extends Component {
         fontWeight: 'bold'
     }
 
+    fruits = ['Mango', 'Cashew', 'Orange']
+
+    renderFruits() {
+        if (this.fruits.length === 0) return <p>No fruits</p>;
+        return this.fruits.map((fruit, index) => (
+            <ul>
+                <li key={index}>{fruit}</li>
+            </ul>
+        ))
+    }
+
+    // a2plcpnl0125.prod.iad2.secureserver.net
     render() {
         return (
             <React.Fragment>
-                <span style={this.styles} className="bg-black p-3 text-white m-2 rounded-md">{this.formatCount()}</span>
+                <span style={this.styles} className="bg-orange-500 p-3 text-white m-2 rounded-md">{this.formatCount()}</span>
                 <span>{this.formatCount()}</span>
                 <div className="mt-2 sm:mt-2 sm:flex sm:justify-start lg:justify-start">
                     <div className="rounded-md shadow">
@@ -31,6 +43,7 @@ class Counter extends Component {
                         </a>
                     </div>
                 </div>
+                <div>{this.renderFruits()}</div>
             </React.Fragment>
         );
     }
